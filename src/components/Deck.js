@@ -5,7 +5,8 @@ const baseURL = "https://deckofcardsapi.com/api/deck";
 
 class Deck extends Component {
 	state = {
-		deck: null
+		deck: null,
+		drawn: []
 	}
 
 	async componentDidMount() {
@@ -21,7 +22,9 @@ class Deck extends Component {
 		const drawCard = `${baseURL}/${id}/draw/?count=1`;
 		let cardResult = await axios.get(drawCard);
 		let card = cardResult.data.cards[0];
-		console.log("card: ",card);
+		this.setState({
+			drawn: [{id: card.code, image: card.image, name: `${card.value} of ${card.suit}`}, ...this.state.drawn]
+		});
 	}
 
 	render() {
