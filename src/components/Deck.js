@@ -30,10 +30,13 @@ class Deck extends Component {
 	}
 
 	render() {
-		let drawnCards = this.state.drawn.map(card => <PlayingCard type={card} /> );
+		let num = 52;
+		let drawnCards = this.state.drawn.map(card => <PlayingCard type={card} number={num--} /> );
+
 		return (
 			<div>
 				<h1>Card Dealer Game</h1>
+				<h2>{num} remaining</h2>
 				<button onClick={this.getCard.bind(this)}>Draw Card!</button>
 				<div className="card-table">
 					{drawnCards}
