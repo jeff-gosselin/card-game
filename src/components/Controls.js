@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
+import '../css/Controls.css';
 
 class Controls extends Component {
 	render() {
 		return (
-			<div>
-				<button onClick={this.props.deal}>Deal</button>
-				<button onClick={this.props.hitPlayer}>Hit</button>
-				<button onClick={this.props.getCard}>Stand</button>
+			<div className="controls">
+				<button onClick={this.props.deal}>DEAL</button>
+				<button onClick={this.props.hitPlayer}>HIT</button>
+				<button onClick={this.props.getCard}>STAND</button>
 			</div>
 		)
 	}
