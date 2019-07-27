@@ -10,9 +10,9 @@ const baseURL = "https://deckofcardsapi.com/api/deck";
 class App extends Component {
 	state = {
 		deck: null,
-		drawn: [],
 		dealerHand: [],
-		playerHand: []
+		playerHand: [],
+		dealStatus: true
 	}
 
 	async componentDidMount() {
@@ -29,32 +29,41 @@ class App extends Component {
 		let card = cardResult.data.cards[0];
 		console.log(card);
 		this.setState({
-			drawn: [{id: card.code, image: card.image, name: `${card.value} of ${card.suit}`}, ...this.state.drawn]
-
+			playerHand: [{id: card.code, image: card.image, name: `${card.value} of ${card.suit}`}, ...this.state.playerHand]
 		})
 	}
 
 	async deal() {
-		const id = this.state.deck.deck_id;
-		const dealCards = `${baseURL}/${id}/draw/?count=4`;
-		let cardResult = await axios.get(dealCards);
+		if (this.state.dealStatus) {
+			const id = this.state.deck.deck_id;
+			const dealCards = `${baseURL}/${id}/draw/?count=4`;
+			let cardResult = await axios.get(dealCards);
 
-		let cards = cardResult.data.cards;
+			let cards = cardResult.data.cards;
 
+			this.setState({
+				playerHand: [
+					{id: cards[0].code[0], image: cards[0].image, name: `${cards[0].value} of ${cards[0].suit}`},
+					{id: cards[1].code[1], image: cards[1].image, name: `${cards[1].value} of ${cards[1].suit}`},
+					...this.state.playerHand
+				],
+				dealerHand: [
+					{id: cards[2].code[2], image: cards[2].image, name: `${cards[2].value} of ${cards[2].suit}`},
+					{id: cards[3].code[3], image: cards[3].image, name: `${cards[3].value} of ${cards[3].suit}`},
+					...this.state.dealerHand
+				],
+				dealStatus: false
+			})
 
-		console.log(cards);
-		// this.setState({
-		// 	drawn: [{id: card.code, image: card.image, name: `${card.value} of ${card.suit}`}, ...this.state.drawn]
-
-		// });
+		}
 	}
 
 	render() {
-		console.log("Remaining: ", this.state.remaining);
+		console.log("Order # : ", this.state.orderNum);
 		return (
 	    <div className="App">
 				<InfoBar />
-				<GameBoard drawn={this.state.drawn} />
+				<GameBoard playerHand={this.state.playerHand} pOrder={this.state.playerHand.length} dealerHand={this.state.dealerHand} />
 				<Controls deal={this.deal.bind(this)} hitPlayer={this.hitPlayer.bind(this)} />
 	    </div>
 	  );

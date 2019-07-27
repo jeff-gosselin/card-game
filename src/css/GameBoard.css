@@ -1,1 +1,29 @@
+.card-table {
+	display: flex;
+	justify-content: center;
+	min-height: 220px;
+}
 
+.card-table__player {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	width: 50vw;
+}
+
+.card-table__player h2 {
+	margin-top: -40px;
+}
+
+.card-table__dealer h2 {
+	margin-top: -40px;
+}
+
+.card-table__dealer {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	width: 50vw;
+}
