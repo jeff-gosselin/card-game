@@ -5,25 +5,47 @@
 }
 
 .card-table__player {
-	position: relative;
 	display: flex;
 	justify-content: center;
+	position: relative;
 	text-align: center;
-	width: 50vw;
+	width: 50%;
 }
 
 .card-table__player h2 {
+	position: absolute;
 	margin-top: -40px;
 }
 
-.card-table__dealer h2 {
-	margin-top: -40px;
-}
-
-.card-table__dealer {
+.card-table__player div {
 	position: relative;
 	display: flex;
 	justify-content: center;
+	left: -40px;
+}
+
+.card-value {
+	position: absolute;
+	padding: 20px;
+	bottom: -40px;
+}
+
+.card-table__dealer {
+	display: flex;
+	justify-content: center;
+	position: relative;
 	text-align: center;
-	width: 50vw;
+	width: 50%;
+}
+
+.card-table__dealer h2 {
+	position: absolute;
+	margin-top: -40px;
+}
+
+.card-table__dealer div {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	left: -40px;
 }
