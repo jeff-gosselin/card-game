@@ -1,0 +1,30 @@
+.bet-wrapper {
+	margin: 0 0px 0 50px;
+	border-right: 1px solid rgba(0,0,0,.2);
+	padding: 10px 30px 0 0;
+	height: 100px;
+}
+
+.bet-wrapper h2 {
+	color: rgba(219,232,232, 1);
+}
+
+.bet {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 60px;
+}
+
+.bet img {
+	height: 60px;
+	margin: 4px;
+}
+
+.bet h1 {
+	position: relative;
+	top: 3px;
+	margin: 2px;
+	color: rgb(255,239,95);
+	opacity: .5;
+}

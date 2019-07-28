@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import GameBoard from './components/GameBoard';
-import InfoBar from './components/InfoBar';
+import Logo from './components/Logo';
 import Controls from './components/Controls';
+import Wagers from './components/Wagers';
+import Bank from './components/Bank';
+import Bet from './components/Bet';
 import axios from 'axios';
 import './css/App.css';
 
@@ -13,7 +16,9 @@ class App extends Component {
 		dealerHand: [],
 		playerHand: [],
 		dealStatus: true,
-		standStatus: false
+		standStatus: false,
+		bank: 2250,
+		bet: 0
 	}
 
 	async componentDidMount() {
@@ -23,7 +28,21 @@ class App extends Component {
 		})
 	}
 
+	placeBet(amt) {
+		if (amt <= this.state.bank) {
+			this.setState({
+				bet: this.state.bet + amt,
+				bank: this.state.bank - amt
+			});
+		}
+
+	}
+
 	async deal() {
+		if (this.state.bet === 0) {
+			alert("Please place bet.");
+			return null;
+		}
 		if (this.state.dealStatus) {
 			const id = this.state.deck.deck_id;
 			const dealCards = `${baseURL}/${id}/draw/?count=4`;
@@ -49,6 +68,9 @@ class App extends Component {
 	}
 
 	async hitPlayer() {
+		if (this.state.playerHand.length < 1) {
+			return null;
+		}
 		const id = this.state.deck.deck_id;
 		const drawCard = `${baseURL}/${id}/draw/?count=1`;
 		let cardResult = await axios.get(drawCard);
@@ -60,6 +82,9 @@ class App extends Component {
 	}
 
 	async hitDealer() {
+		if (this.state.dealerHand.length < 1) {
+			return null;
+		}
 		const id = this.state.deck.deck_id;
 		const drawCard = `${baseURL}/${id}/draw/?count=1`;
 		let cardResult = await axios.get(drawCard);
@@ -136,38 +161,39 @@ class App extends Component {
 				dealerHand: [],
 				playerHand: [],
 				dealStatus: true,
+				bet: 0,
 				standStatus: false
 			})
 		}
 
 		if (this.playerCardTotal() === 21 || this.dealerCardTotal() > 21) {
+			let winnings = this.state.bet * 2;
 			alert("You Win!");
 			this.setState({
 				dealerHand: [],
 				playerHand: [],
 				dealStatus: true,
+				bank: winnings + this.state.bank,
+				bet: 0,
 				standStatus: false
 			})
 		}
-
-		// if (this.state.standStatus && ()) {
-		// 	alert("You Win!");
-		// 	this.setState({
-		// 		dealerHand: [],
-		// 		playerHand: [],
-		// 		dealStatus: true,
-		// 		standStatus: false
-		// 	})
-		// }
 	}
 
 	render() {
 		console.log("Player Hand: ", this.state.playerHand);
 		return (
 	    <div className="App">
-				<InfoBar />
+				<Logo />
 				<GameBoard playerHand={this.state.playerHand} dealerHand={this.state.dealerHand} pCardTotal={this.playerCardTotal()} dCardTotal={this.dealerCardTotal()} roundResult={this.gameLogic.bind(this)}/>
-				<Controls deal={this.deal.bind(this)} hitPlayer={this.hitPlayer.bind(this)} stand={this.stand.bind(this)} />
+
+				<div className="main-panel">
+					<Controls deal={this.deal.bind(this)} hitPlayer={this.hitPlayer.bind(this)} stand={this.stand.bind(this)} />
+					<Bet bet={this.state.bet} />
+					<Bank bank={this.state.bank} />
+				</div>
+
+				<Wagers placeBet={this.placeBet.bind(this)}/>
 	    </div>
 	  );
 	}

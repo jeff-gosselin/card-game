@@ -1,0 +1,49 @@
+/***** Colors *****
+Reddish: #73072E;
+Green: #0A7368;
+Tan: #F2C0A2;
+Flesh: #D99282;
+Dark: #0D0D0D;
+*/
+
+
+.wagers {
+	display: flex;
+	justify-content: center;
+	margin: 0 auto;
+	padding: 30px;
+	/* border: 3px solid rgba(255,255,255,.2); */
+	width: 80vw;
+	border-radius: 10px;
+	/* background-color: rgba(0,0,0,.25); */
+	transition-duration: 1s;
+}
+
+.wagers:hover {
+	/* border: 3px solid rgba(255,255,255,.5); */
+	background-color: rgba(0,0,0,0);
+}
+
+.wagers button {
+	width: 20vw;
+	margin: 0 4px;
+	padding: 6px;
+	color: #f7f7f7;
+	font-size: .9rem;
+	font-weight: bold;
+	background-color: #73072E;
+	border-radius: 2px;
+	border: 2px solid transparent;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.4);
+}
+
+.wagers button:hover {
+	/* background-color: #0D0D0D; */
+	border: 2px solid rgba(255,255,255,.5);
+}
+
+.wagers button:active {
+	background-color: #0D0D0D;
+	box-shadow: none;
+	outline: none;
+}

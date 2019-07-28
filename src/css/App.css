@@ -5,3 +5,12 @@
 	justify-content: space-around;
 	height: 100vh;
 }
+
+.main-panel {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 20px;
+	background-color: #0A7368;
+	box-shadow: 2px 2px 4px rgba(0,0,0,.25);
+}
